@@ -8,7 +8,7 @@ $(document).ready(function(){
     $("#sendMessageForm").submit(sendMessage);
 });
 
-var sendMessage = function (){
+var sendMessage = function (event){
     
     // Prevent default posting of form - put here to work in case of errors
     event.preventDefault();
