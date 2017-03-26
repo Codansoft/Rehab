@@ -1,22 +1,17 @@
 <?php
+    header("Content-Type: application/json; charset=UTF-8");
 
+    $result->status = "Success";
+    
     $subject = "Website Visitor";
     $sender = $_POST['sender'];
     $from = $_POST['replyTo'];
     $message = $_POST['message']; 
-    //$message = $_REQUEST['message'];
-    
-    $testText = "Welcome PHP";
-    //echo " Subject" . $subject;
-    //echo " Sender" . $sender;
-    //echo " Message" . $message;
-    
-    $data = json_encode($testText);
-    echo $data;
-   
+    // $_REQUEST['message'];
+
+    //$data = json_encode();
 
     // Send email message from Website
-    //$to = "codansoft@codansoft.eu"; 
     $to = "rehab@rehab.pl"; 
     $webmaster =  "webmaster@rehab.pl";
 
@@ -28,8 +23,8 @@
     } 
     catch (Exception $ex) 
     {
-        echo $ex->getMessage();
+        $result->status = $ex->getMessage();
     }
-
     
+    echo json_encode($result);
 ?> 
