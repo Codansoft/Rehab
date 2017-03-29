@@ -30,27 +30,35 @@ var sendMessage = function (event){
         "message":text
     }
     
-    var myJSON = JSON.stringify(emailMessage);
-    //window.alert("CODAN " + myJSON);
+    //var emailJSON = JSON.stringify(emailMessage);
     
-    var posting  = $.post("./assets/php/sendEmail.php", emailMessage, messageSuccess);
+    var posting  = $.post("./assets/php/sendEmail.php", emailMessage);
     
-    posting.fail(messageFail);
-    
-    // Put the results in a div
-    posting.done(function( data ) {
-        //var content = $( data ).find( "#content" );
-        //alert( "PHP sendEmail Done" );
-    });
+    posting.done(requestDone);
+    posting.fail(requestFail);
 }
 
-// Callback
-var messageSuccess = function (data){
+// Callbacks
+var requestDone = function (data){
+    if(data == 'success'){
+        alertSuccess("Wiadomość została wysłana");
+    }else{
+        alertFail(data);
+    }
+}
+
+var requestFail = function (data){
+    alertFail(data);
+}
+
+function alertSuccess(text){
     $("#messageNotify").addClass("alert alert-success");
-    $("#messageNotify").html("<strong>Success!</strong> " );
+    $("#messageNotify").html("<strong>Success!</strong> "  );
+    $("#messageNotify").append(text);
 }
 
-var messageFail = function (data){
+function alertFail(text){
     $("#messageNotify").addClass("alert alert-danger");
-    $("#messageNotify").html("<strong>Error!</strong> " );
+    $("#messageNotify").html("<strong>Error!</strong> "  );
+    $("#messageNotify").append(text);
 }

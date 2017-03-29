@@ -1,17 +1,36 @@
 <?php
-    header("Content-Type: application/json; charset=UTF-8");
+/*
+ *  This script sends email message from Website
+ *  Codansoft 2017
+ *  $_REQUEST['message'];
+    $_POST['sender']
+ */
+    //header("Content-Type: application/json; charset=UTF-8");
+    //header('Content-Type:text/html');
+    header('Content-Type:text/plain');
 
-    $result->status = "Success";
-    
+    $result = "";
     $subject = "Website Visitor";
-    $sender = $_POST['sender'];
-    $from = $_POST['replyTo'];
-    $message = $_POST['message']; 
-    // $_REQUEST['message'];
+    
+    $sender = filter_input(INPUT_POST, 'sender'); 
+    $from = filter_input(INPUT_POST, 'replyTo');
+    $message = filter_input(INPUT_POST, 'message');
 
-    //$data = json_encode();
-
-    // Send email message from Website
+    if(is_null($sender)) {
+        echo "Empty Sender";
+        return;
+    }
+    
+    if(is_null($from)){
+        echo "Empty ReplyTo";
+        return;
+    }
+    
+    if(is_null($message)){
+        echo "Empty Message";
+        return;
+    }    
+    
     $to = "rehab@rehab.pl"; 
     $webmaster =  "webmaster@rehab.pl";
 
@@ -19,12 +38,19 @@
 
     try 
     {
-        mail($to, $subject, $message, $headers);
+        $accepted = mail($to, $subject, $message, $headers);
+        
+        if($accepted){
+            $result = "success";
+        } else {
+            $result = "Mail wasn't accepted for delivery";
+        }
     } 
     catch (Exception $ex) 
     {
-        $result->status = $ex->getMessage();
+        $result = $ex->getMessage();
     }
     
-    echo json_encode($result);
+    //json_encode($result);
+    echo $result;
 ?> 
