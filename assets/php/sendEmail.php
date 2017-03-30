@@ -9,30 +9,30 @@
     //header('Content-Type:text/html');
     header('Content-Type:text/plain');
 
-    $result = "";
-    $subject = "Website Visitor";
+    $result = '';
+    $subject = 'Website Visitor';
     
     $sender = filter_input(INPUT_POST, 'sender'); 
     $from = filter_input(INPUT_POST, 'replyTo');
     $message = filter_input(INPUT_POST, 'message');
 
     if(is_null($sender)) {
-        echo "Empty Sender";
+        echo 'Empty Sender';
         return;
     }
     
     if(is_null($from)){
-        echo "Empty ReplyTo";
+        echo 'Empty ReplyTo';
         return;
     }
     
     if(is_null($message)){
-        echo "Empty Message";
+        echo 'Empty Message';
         return;
     }    
     
-    $to = "rehab@rehab.pl"; 
-    $webmaster =  "webmaster@rehab.pl";
+    $to = 'rehab@rehab.pl';
+    $webmaster =  'webmaster@rehab.pl';
 
     $headers = 'From: ' . $webmaster . "\r\n" . 'Reply-To: ' . $from . "\r\n";
 

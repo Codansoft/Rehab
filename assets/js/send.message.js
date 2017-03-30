@@ -40,15 +40,15 @@ var sendMessage = function (event){
 
 // Callbacks
 var requestDone = function (data){
-    if(data == 'success'){
+    if(data.valueOf() === "success"){
         alertSuccess("Wiadomość została wysłana");
     }else{
-        alertFail(data);
+        alertFail(data.valueOf());
     }
 }
 
 var requestFail = function (data){
-    alertFail(data);
+    alertFail(data.valueOf());
 }
 
 function alertSuccess(text){
