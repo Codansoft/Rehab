@@ -39,16 +39,18 @@ var sendMessage = function (event){
 }
 
 // Callbacks
-var requestDone = function (data){
-    if(data.valueOf() === "success"){
+var requestDone = function (response){
+    var resp = String(response).trim();
+    
+    if(resp == 'success'){
         alertSuccess("Wiadomość została wysłana");
     }else{
-        alertFail(data.valueOf());
+        alertFail(response.valueOf());
     }
 }
 
-var requestFail = function (data){
-    alertFail(data.valueOf());
+var requestFail = function (response){
+    alertFail(response.valueOf());
 }
 
 function alertSuccess(text){

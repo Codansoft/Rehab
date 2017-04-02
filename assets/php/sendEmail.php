@@ -7,15 +7,15 @@
  */
     //header("Content-Type: application/json; charset=UTF-8");
     //header('Content-Type:text/html');
-    header('Content-Type:text/plain');
+    header('Content-Type:text/plain; charset=UTF-8');
 
     $result = '';
-    $subject = 'Website Visitor';
+    $subject = 'Zapytanie';
     
     $sender = filter_input(INPUT_POST, 'sender'); 
     $from = filter_input(INPUT_POST, 'replyTo');
     $message = filter_input(INPUT_POST, 'message');
-
+    
     if(is_null($sender)) {
         echo 'Empty Sender';
         return;
@@ -31,17 +31,17 @@
         return;
     }    
     
-    $to = 'rehab@rehab.pl';
-    $webmaster =  'webmaster@rehab.pl';
+    $to = 'kontakt@rehabilitacjamalbork.pl';
+    $webmaster =  'master@rehabilitacjamalbork.pl';
 
     $headers = 'From: ' . $webmaster . "\r\n" . 'Reply-To: ' . $from . "\r\n";
 
     try 
-    {
+    {        
         $accepted = mail($to, $subject, $message, $headers);
         
         if($accepted){
-            $result = "success";
+            $result = 'success';
         } else {
             $result = "Mail wasn't accepted for delivery";
         }
